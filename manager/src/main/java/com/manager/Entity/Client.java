@@ -82,6 +82,21 @@ public class Client implements Serializable{
 	public void setSize(String size) {
 		this.size = size;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(cpf, email, id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		return Objects.equals(cpf, other.cpf) && Objects.equals(email, other.email) && Objects.equals(id, other.id);
+	}
 	
 	
 	
