@@ -1,9 +1,11 @@
 package com.manager.Entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +23,8 @@ public class Client implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private String nm_client;
-	private String lnm_client;
+	@Column(name = "nm_client")
+	private String descricao;
 	private String cpf;
 	@ElementCollection
 	@OneToMany
@@ -32,31 +34,33 @@ public class Client implements Serializable{
 	@OneToMany
 	private List<PhoneNumber> phoneNumbers;
 	private String size;
+	private LocalDate dt_cadastro;
+	private LocalDate dt_alteracao;
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNm_client() {
-		return nm_client;
-	}
-	public void setNm_client(String nm_client) {
-		this.nm_client = nm_client;
-	}
-	public String getLnm_client() {
-		return lnm_client;
-	}
-	public void setLnm_client(String lnm_client) {
-		this.lnm_client = lnm_client;
-	}
+	
 	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	
 
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	public List<Adress> getAdress() {
 		return adress;
 	}
@@ -81,6 +85,20 @@ public class Client implements Serializable{
 	}
 	public void setSize(String size) {
 		this.size = size;
+	}
+	
+	
+	public LocalDate getDt_cadastro() {
+		return dt_cadastro;
+	}
+	public void setDt_cadastro(LocalDate dt_cadastro) {
+		this.dt_cadastro = dt_cadastro;
+	}
+	public LocalDate getDt_alteracao() {
+		return dt_alteracao;
+	}
+	public void setDt_alteracao(LocalDate dt_alteracao) {
+		this.dt_alteracao = dt_alteracao;
 	}
 	@Override
 	public int hashCode() {

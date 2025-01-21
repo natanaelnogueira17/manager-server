@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.TemporalType;
 @Entity
 @Table(name = "tb_orders")
 public class Order implements Serializable{
@@ -34,6 +35,12 @@ public class Order implements Serializable{
 	private PaymentMethods paymentMethods;
 	private Double discount;
 	private Double total;
+	private Double frete;
+	private LocalDate dt_cadastro;
+	private LocalDate dt_alteracao;
+	
+	
+	
 	public Integer getId() {
 		return Id;
 	}
@@ -88,8 +95,26 @@ public class Order implements Serializable{
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	
+	public Double getFrete() {
+		return frete;
+	}
+	public void setFrete(Double frete) {
+		this.frete = frete;
+	}
+	
+	
+	public LocalDate getDt_cadastro() {
+		return dt_cadastro;
+	}
+	public void setDt_cadastro(LocalDate dt_cadastro) {
+		this.dt_cadastro = dt_cadastro;
+	}
+	public LocalDate getDt_alteracao() {
+		return dt_alteracao;
+	}
+	public void setDt_alteracao(LocalDate dt_alteracao) {
+		this.dt_alteracao = dt_alteracao;
 	}
 	@Override
 	public int hashCode() {

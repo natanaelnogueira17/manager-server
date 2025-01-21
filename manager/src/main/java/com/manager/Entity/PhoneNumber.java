@@ -1,6 +1,7 @@
 package com.manager.Entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -18,6 +19,10 @@ public class PhoneNumber implements Serializable{
 		private Integer id;
 		private String mobile;
 		private String fix;
+		private LocalDate dt_cadastro;
+		private LocalDate dt_alteracao;
+		
+		
 		public Integer getId() {
 			return id;
 		}
@@ -35,6 +40,19 @@ public class PhoneNumber implements Serializable{
 		}
 		public void setFix(String fix) {
 			this.fix = fix;
+		}
+		
+		public LocalDate getDt_cadastro() {
+			return dt_cadastro;
+		}
+		public void setDt_cadastro(LocalDate dt_cadastro) {
+			this.dt_cadastro = dt_cadastro;
+		}
+		public LocalDate getDt_alteracao() {
+			return dt_alteracao;
+		}
+		public void setDt_alteracao(LocalDate dt_alteracao) {
+			this.dt_alteracao = dt_alteracao;
 		}
 		@Override
 		public int hashCode() {

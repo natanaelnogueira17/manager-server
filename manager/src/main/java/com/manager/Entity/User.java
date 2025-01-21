@@ -4,71 +4,51 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import jakarta.annotation.Generated;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 @Entity
-@Table(name = "tb_product")
-public class Product implements Serializable{
+@Table(name = "tb_user")
+public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private String name;
-	private String descricption;
-	private Integer quantity;
-	private Double priceAquisition;
-	private Double priceSale;
-	private LocalDate dateAquisition;
+	private String login;
+	private String password;
+	@Column(name = "nm_user")
+	private String description;
 	private LocalDate dt_cadastro;
 	private LocalDate dt_alteracao;
-	
-	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getLogin() {
+		return login;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setLogin(String login) {
+		this.login = login;
 	}
-	public String getDescricption() {
-		return descricption;
+	public String getPassword() {
+		return password;
 	}
-	public void setDescricption(String descricption) {
-		this.descricption = descricption;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public Integer getQuantity() {
-		return quantity;
+	public String getDescription() {
+		return description;
 	}
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-	public Double getPriceAquisition() {
-		return priceAquisition;
-	}
-	public void setPriceAquisition(Double priceAquisition) {
-		this.priceAquisition = priceAquisition;
-	}
-	public Double getPriceSale() {
-		return priceSale;
-	}
-	public void setPriceSale(Double priceSale) {
-		this.priceSale = priceSale;
-	}
-	public LocalDate getDateAquisition() {
-		return dateAquisition;
-	}
-	public void setDateAquisition(LocalDate dateAquisition) {
-		this.dateAquisition = dateAquisition;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public LocalDate getDt_cadastro() {
 		return dt_cadastro;
@@ -82,7 +62,6 @@ public class Product implements Serializable{
 	public void setDt_alteracao(LocalDate dt_alteracao) {
 		this.dt_alteracao = dt_alteracao;
 	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -95,10 +74,12 @@ public class Product implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Product other = (Product) obj;
+		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-		
+	
+	
+	
 	
 
 }
