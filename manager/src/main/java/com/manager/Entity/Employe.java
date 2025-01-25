@@ -25,10 +25,9 @@ public class Employe implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_employe_seq")
     @SequenceGenerator(name = "tb_employe_seq", sequenceName = "tb_employe_seq", allocationSize = 1)
 	private Integer id;
-	@Column(name = "nm_client")
-	private String nome;
-	private String cpf;
+	@Column(name = "nm_employe")
 	private String description;
+	private String cpf;
 	private Function function;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dt_cadastro;
@@ -41,13 +40,7 @@ public class Employe implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}
