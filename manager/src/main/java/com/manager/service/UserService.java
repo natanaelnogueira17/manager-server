@@ -24,13 +24,13 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 	
-	public User save (User user) {
+	public void save (User user) {
 		user.setDt_cadastro(new Date());
-		return userRepository.save(user);
+		 userRepository.save(user);
 	}
 
 
-	public User update (Integer id, User user) {
+	public void update (Integer id, User user) {
 		Optional<User> userBanco = userRepository.findById(id);
 		User userEdited = userBanco.get();
 		userEdited.setId(id);
@@ -38,15 +38,12 @@ public class UserService {
 		userEdited.setDt_alteracao(new Date());
 		userEdited.setLogin(user.getLogin());
 		userEdited.setPassword(user.getPassword());
-		return userRepository.save(userEdited);
+		 userRepository.save(userEdited);
 	}
 	
 	
-	public void delete (Integer id) {
-
-			Optional<User> user = userRepository.findById(id);
-			User userNew = user.get();
-			userRepository.deleteById(userNew.getId());
+	public void delete (Integer id) {		
+	   userRepository.deleteById(id);
 	
 	}
 	

@@ -2,6 +2,7 @@ package com.manager.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import com.manager.enums.Function;
@@ -11,22 +12,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "tb_employe")
 public class Employe implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_employe_seq")
+    @SequenceGenerator(name = "tb_employe_seq", sequenceName = "tb_employe_seq", allocationSize = 1)
 	private Integer id;
 	@Column(name = "nm_client")
 	private String nome;
 	private String cpf;
 	private String description;
 	private Function function;
-	private LocalDate dt_cadastro;
-	private LocalDate dt_alteracao;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_cadastro;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_alteracao;
 	
 	public Integer getId() {
 		return id;
@@ -61,16 +68,16 @@ public class Employe implements Serializable{
 	}
 	
 	
-	public LocalDate getDt_cadastro() {
+	public Date getDt_cadastro() {
 		return dt_cadastro;
 	}
-	public void setDt_cadastro(LocalDate dt_cadastro) {
+	public void setDt_cadastro(Date dt_cadastro) {
 		this.dt_cadastro = dt_cadastro;
 	}
-	public LocalDate getDt_alteracao() {
+	public Date getDt_alteracao() {
 		return dt_alteracao;
 	}
-	public void setDt_alteracao(LocalDate dt_alteracao) {
+	public void setDt_alteracao(Date dt_alteracao) {
 		this.dt_alteracao = dt_alteracao;
 	}
 	@Override

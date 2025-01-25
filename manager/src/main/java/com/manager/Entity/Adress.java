@@ -2,13 +2,17 @@ package com.manager.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "tb_adress")
@@ -17,16 +21,19 @@ public class Adress implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_adress_seq")
+    @SequenceGenerator(name = "tb_adress_seq", sequenceName = "tb_adress_seq", allocationSize = 1)
 	private Integer id;
-	private String steet;
+	private String street;
 	private Integer number;
 	private String complement;
 	private String city;
 	private String state;
 	private String counttry;
-	private LocalDate dt_cadastro;
-	private LocalDate dt_alteracao;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_cadastro;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_alteracao;
 	
 	
 	public Integer getId() {
@@ -35,11 +42,11 @@ public class Adress implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getSteet() {
-		return steet;
+	public String getStreet() {
+		return street;
 	}
-	public void setSteet(String steet) {
-		this.steet = steet;
+	public void setStreet(String steet) {
+		this.street = steet;
 	}
 	public Integer getNumber() {
 		return number;
@@ -72,16 +79,16 @@ public class Adress implements Serializable{
 		this.counttry = counttry;
 	}
 	
-	public LocalDate getDt_cadastro() {
+	public Date getDt_cadastro() {
 		return dt_cadastro;
 	}
-	public void setDt_cadastro(LocalDate dt_cadastro) {
+	public void setDt_cadastro(Date dt_cadastro) {
 		this.dt_cadastro = dt_cadastro;
 	}
-	public LocalDate getDt_alteracao() {
+	public Date getDt_alteracao() {
 		return dt_alteracao;
 	}
-	public void setDt_alteracao(LocalDate dt_alteracao) {
+	public void setDt_alteracao(Date dt_alteracao) {
 		this.dt_alteracao = dt_alteracao;
 	}
 	@Override

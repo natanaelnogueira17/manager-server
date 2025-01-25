@@ -2,6 +2,7 @@ package com.manager.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,21 +14,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 @Entity
 @Table(name = "tb_orders")
 public class Order implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	
+
+	private static final long serialVersionUid = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer Id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_orders_seq")
+    @SequenceGenerator(name = "tb_orders_seq", sequenceName = "tb_orders_seq", allocationSize = 1)
+	private Integer id;
 	private Client client;
-	@ElementCollection
 	@OneToMany
+	@JoinColumn(name = "orders_id")
 	private List<Product> products;
 	private LocalDate date;
 	private Employe employe;
@@ -36,16 +43,18 @@ public class Order implements Serializable{
 	private Double discount;
 	private Double total;
 	private Double frete;
-	private LocalDate dt_cadastro;
-	private LocalDate dt_alteracao;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_cadastro;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_alteracao;
 	
 	
 	
-	public Integer getId() {
-		return Id;
+	public Integer getid() {
+		return id;
 	}
-	public void setId(Integer id) {
-		Id = id;
+	public void setid(Integer id) {
+		id = id;
 	}
 	public Client getClient() {
 		return client;
@@ -104,21 +113,21 @@ public class Order implements Serializable{
 	}
 	
 	
-	public LocalDate getDt_cadastro() {
+	public Date getDt_cadastro() {
 		return dt_cadastro;
 	}
-	public void setDt_cadastro(LocalDate dt_cadastro) {
+	public void setDt_cadastro(Date dt_cadastro) {
 		this.dt_cadastro = dt_cadastro;
 	}
-	public LocalDate getDt_alteracao() {
+	public Date getDt_alteracao() {
 		return dt_alteracao;
 	}
-	public void setDt_alteracao(LocalDate dt_alteracao) {
+	public void setDt_alteracao(Date dt_alteracao) {
 		this.dt_alteracao = dt_alteracao;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(Id);
+		return Objects.hash(id);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -129,7 +138,7 @@ public class Order implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		return Objects.equals(Id, other.Id);
+		return Objects.equals(id, other.id);
 	}
 	
 	

@@ -1,17 +1,17 @@
 package com.manager.Entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -31,12 +31,16 @@ public class Client implements Serializable{
 	@Column(name = "nm_client")
 	private String descricao;
 	private String cpf;
-	@ElementCollection
-	@OneToMany
+	
+	@OneToMany(cascade = CascadeType.ALL,  // Aplica todas as operações em cascata (inclusive DELETE)
+               orphanRemoval = true)
+	@JoinColumn(name = "client_id")
 	private List<Adress> adress;
 	private String email;
-	@ElementCollection
-	@OneToMany
+	
+	@OneToMany(cascade = CascadeType.ALL,  // Aplica todas as operações em cascata (inclusive DELETE)
+	            orphanRemoval = true)    // Remove telefones órfãos automaticamente)
+	@JoinColumn(name = "client_id")
 	private List<PhoneNumber> phoneNumbers;
 	private String size;
 	@Temporal(TemporalType.TIMESTAMP)

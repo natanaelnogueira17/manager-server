@@ -2,6 +2,7 @@ package com.manager.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.annotation.Generated;
@@ -9,14 +10,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_product_seq")
+    @SequenceGenerator(name = "tb_product_seq", sequenceName = "tb_product_seq", allocationSize = 1)
 	private Integer id;
 	private String name;
 	private String descricption;
@@ -24,8 +29,10 @@ public class Product implements Serializable{
 	private Double priceAquisition;
 	private Double priceSale;
 	private LocalDate dateAquisition;
-	private LocalDate dt_cadastro;
-	private LocalDate dt_alteracao;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_cadastro;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dt_alteracao;
 	
 	
 	public Integer getId() {
@@ -70,16 +77,16 @@ public class Product implements Serializable{
 	public void setDateAquisition(LocalDate dateAquisition) {
 		this.dateAquisition = dateAquisition;
 	}
-	public LocalDate getDt_cadastro() {
+	public Date getDt_cadastro() {
 		return dt_cadastro;
 	}
-	public void setDt_cadastro(LocalDate dt_cadastro) {
+	public void setDt_cadastro(Date dt_cadastro) {
 		this.dt_cadastro = dt_cadastro;
 	}
-	public LocalDate getDt_alteracao() {
+	public Date getDt_alteracao() {
 		return dt_alteracao;
 	}
-	public void setDt_alteracao(LocalDate dt_alteracao) {
+	public void setDt_alteracao(Date dt_alteracao) {
 		this.dt_alteracao = dt_alteracao;
 	}
 
