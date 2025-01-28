@@ -1,5 +1,6 @@
 package com.manager.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,13 @@ public class EmployeService {
 	
 	public Optional<Employe> findById(Integer id) {
 		return employeRepository.findById(id);
+		
+	}
+
+	public void save(Employe employe) {
+		employe.setDt_cadastro(new Date());	
+		//mploye.setFunctionValue(employe.getFunction().getNumero());
+		employeRepository.save(employe);
 		
 	}
 }

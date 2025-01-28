@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.lang.NonNull;
+
 import com.manager.enums.Function;
 
 import jakarta.persistence.Column;
@@ -16,6 +18,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_employe")
@@ -27,8 +30,12 @@ public class Employe implements Serializable{
 	private Integer id;
 	@Column(name = "nm_employe")
 	private String description;
+	@NonNull
 	private String cpf;
+	@Transient
 	private Function function;
+	@Column(name = "function")
+	private Integer functionValue;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dt_cadastro;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -87,6 +94,12 @@ public class Employe implements Serializable{
 			return false;
 		Employe other = (Employe) obj;
 		return Objects.equals(id, other.id);
+	}
+	public Integer getFunctionValue() {
+		return functionValue;
+	}
+	public void setFunctionValue(Integer functionValue) {
+		this.functionValue = functionValue;
 	}  
 	
 	
