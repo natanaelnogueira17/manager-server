@@ -31,4 +31,22 @@ public class EmployeService {
 		employeRepository.save(employe);
 		
 	}
+	
+	
+	public void update (Integer id, Employe employe) {
+		Optional<Employe> result = findById(id);
+		Employe employeBanco = result.get();
+		employe.setDt_alteracao(new Date());
+		employe.setDt_cadastro(employeBanco.getDt_cadastro());
+		employeRepository.save(employe);
+	}
+	
+	public void delete (Integer id) {
+		Optional<Employe> result = findById(id) ;
+		if(!result.isEmpty()) {
+		employeRepository.deleteById(id);
+	}else {
+		throw new IllegalArgumentException("id nao encontrado");
+	}
+	}
 }
