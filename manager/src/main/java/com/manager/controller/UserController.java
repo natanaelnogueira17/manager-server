@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +28,16 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> save (@RequestBody User user) {
+	public ResponseEntity<String> save (@RequestBody User user) {
 		try {
 		 userService.save(user);
+		 return ResponseEntity.status(HttpStatus.CREATED).body("Usuario Salvo com Sucesso!");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return  ResponseEntity.badRequest().build();
+			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao salvar Usuário");
 	}
 		
-		return ResponseEntity.ok().body(user);
 	}
 	
 	@GetMapping("/all")
@@ -44,7 +45,7 @@ public class UserController {
 		List<User> lista =  new ArrayList<>();
 		lista = userService.findAlList();
         if (lista.isEmpty()) {
-            return ResponseEntity.noContent().build(); // HTTP 204 No Content
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(lista); // HTTP 200 OK com a lista de usuários
     }
@@ -55,30 +56,30 @@ public class UserController {
 		if(user!=null) {
 			return  ResponseEntity.ok().body(user);			
 		}else {
-			return null;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody User userEdit) {
+	public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody User userEdit) {
 		 try {
 			 userService.update(id, userEdit);
-			return  (ResponseEntity<?>) ResponseEntity.ok();
+			return  ResponseEntity.status(HttpStatus.OK).body("Usuário atualizado com sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
-			 return ResponseEntity.notFound().build();	
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao atualizar Usuario");	
 		}
 
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> delete (@PathVariable Integer id) {
+	public ResponseEntity<String> delete (@PathVariable Integer id) {
 		try {
 			userService.delete(id);
-			return (ResponseEntity<?>)ResponseEntity.ok();
+			return ResponseEntity.status(HttpStatus.OK).body("Usuario deletado com sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
-			 return ResponseEntity.notFound().build();
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao deletar Usuario");
 		}
 	
 	}

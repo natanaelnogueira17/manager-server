@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manager.Entity.Client;
+import com.manager.Entity.Employe;
 import com.manager.Entity.PhoneNumber;
 import com.manager.repository.ClientRepository;
 
@@ -54,8 +55,12 @@ public class ClientService {
 	
 	
 	public void delete (Integer id) {
+		Optional<Client> result = findById(id) ;
+		if(!result.isEmpty()) {
 		clientRepository.deleteById(id);
-	
+		}else {
+			throw new IllegalArgumentException("id nao encontrado");
+		}
 	}
 
 	

@@ -42,8 +42,13 @@ public class UserService {
 	}
 	
 	
-	public void delete (Integer id) {		
-	   userRepository.deleteById(id);
+	public void delete (Integer id) {	
+		Optional<User> result = findById(id);
+		if(!result.isEmpty()) {
+	    userRepository.deleteById(id);
+		}else {
+			throw new IllegalArgumentException();
+		}
 	
 	}
 	

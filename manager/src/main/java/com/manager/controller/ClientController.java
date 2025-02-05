@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,15 +28,15 @@ public class ClientController {
 	private ClientService clientService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> save (@RequestBody Client client) {
+	public ResponseEntity<String> save (@RequestBody Client client) {
 		try {
 			
 			clientService.save(client);
-			return ResponseEntity.ok().build();
+			 return ResponseEntity.status(HttpStatus.CREATED).body("Cliente Salvo com Sucesso!");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return  ResponseEntity.badRequest().build();
+			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao salvar Cliente");
 	}
 		
 	}
@@ -45,7 +46,7 @@ public class ClientController {
 		List<Client> lista =  new ArrayList<>();
 		lista = clientService.findAlList();
         if (lista.isEmpty()) {
-            return ResponseEntity.noContent().build(); // HTTP 204 No Content
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);// HTTP 204 No Content
         }
         return ResponseEntity.ok(lista); // HTTP 200 OK com a lista de usuários
     }
@@ -56,28 +57,30 @@ public class ClientController {
 		if(Client!=null) {
 			return  ResponseEntity.ok().body(Client);			
 		}else {
-			return null;
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Client client) {
+	public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody Client client) {
 		 try {
 			clientService.update(id,client);
-			 return ResponseEntity.ok().build();
+			 return ResponseEntity.status(HttpStatus.OK).body("Cliente atualizado com Sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.notFound().build();	
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao atualizar cliente");
 		}
 
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public void delete (@PathVariable Integer id) {
+	public ResponseEntity<String>  delete (@PathVariable Integer id) {
 		try {
 			clientService.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Falha ao Deletar");
 		}
 	}
 	
