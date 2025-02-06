@@ -28,7 +28,8 @@ public class Product implements Serializable{
 	private Integer quantity;
 	private Double priceAquisition;
 	private Double priceSale;
-	private LocalDate dateAquisition;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date  dateAquisition;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dt_cadastro;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -71,10 +72,10 @@ public class Product implements Serializable{
 	public void setPriceSale(Double priceSale) {
 		this.priceSale = priceSale;
 	}
-	public LocalDate getDateAquisition() {
+	public Date getDateAquisition() {
 		return dateAquisition;
 	}
-	public void setDateAquisition(LocalDate dateAquisition) {
+	public void setDateAquisition(Date dateAquisition) {
 		this.dateAquisition = dateAquisition;
 	}
 	public Date getDt_cadastro() {

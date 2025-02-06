@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -33,8 +34,7 @@ public class Order implements Serializable{
     @SequenceGenerator(name = "tb_orders_seq", sequenceName = "tb_orders_seq", allocationSize = 1)
 	private Integer id;
 	private Client client;
-	@OneToMany
-	@JoinColumn(name = "orders_id")
+	@ManyToMany()
 	private List<Product> products;
 	private LocalDate date;
 	private Employe employe;
